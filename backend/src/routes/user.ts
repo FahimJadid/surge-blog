@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { hashPassword, verifyPassword } from "../utils/crypto-utils";
 import { sign } from "hono/jwt";
-import {SignupSchema, LoginSchema} from "@fahimaljadid/surge-common"
+import { SignupSchema, LoginSchema } from "@fahimaljadid/surge-common";
 
 type Context = {
   Bindings: {
@@ -22,9 +22,9 @@ userRouter.post("/signup", async (c) => {
   const body = await c.req.json();
   const { success } = SignupSchema.safeParse(body);
 
-  if(!success){
+  if (!success) {
     c.status(400);
-    return c.json({error: "Invalid request body"});
+    return c.json({ error: "Invalid request body" });
   }
 
   try {
@@ -33,15 +33,15 @@ userRouter.post("/signup", async (c) => {
       data: {
         email: body.email,
         name: body.name,
+        username: body.email.split("@")[0],
         password: hashedPassword,
       },
     });
 
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
 
-    return c.json({ token }, 201);
+    return c.json({ jwt: token, id: user.id }, 201);
   } catch (error) {
-    console.error("Error during signup:", error);
     c.status(403);
     return c.json({ error: "error while signing up" });
   }
@@ -51,11 +51,11 @@ userRouter.post("/login", async (c) => {
   const prisma = c.get("prisma");
   const body = await c.req.json();
 
-  const {success} = LoginSchema.safeParse(body);
+  const { success } = LoginSchema.safeParse(body);
 
-  if(!success){
+  if (!success) {
     c.status(400);
-    return c.json({error: "Invalid request body"});
+    return c.json({ error: "Invalid request body" });
   }
   try {
     const user = await prisma.user.findUnique({
@@ -78,7 +78,7 @@ userRouter.post("/login", async (c) => {
 
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
 
-    return c.json({ token }, 200);
+    return c.json({ jwt: token }, 200);
   } catch (error) {
     console.error("Error during login:", error);
     c.status(403);

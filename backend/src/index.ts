@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { cors } from 'hono/cors'
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { userRouter } from "./routes/user";
@@ -34,7 +35,7 @@ const prismaMiddleware = async (c: PrismaMiddlewareContext, next: NextFunction) 
 };
   
 const app = new Hono<Context>();
-
+app.use('/*', cors())
 app.use("*", prismaMiddleware);
 
 app.route("/api/v1/user", userRouter);

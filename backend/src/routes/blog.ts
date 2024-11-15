@@ -52,7 +52,19 @@ blogRouter.get("/bulk", async (c) => {
   const prisma = c.get("prisma");
 
   try {
-    const posts = await prisma.post.findMany({});
+    const posts = await prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            name: true,
+            username: true,
+          }
+        }
+      }
+    });
     return c.json({ posts });
   } catch (error) {
     c.status(500);
@@ -129,6 +141,17 @@ blogRouter.get("/:id", async (c) => {
       where: {
         id,
       },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            name: true,
+            username: true,
+          }
+        }
+      }
     });
 
     if (!post) {
@@ -136,7 +159,7 @@ blogRouter.get("/:id", async (c) => {
       return c.json({ message: "Blog Post not found" });
     }
 
-    return c.json(post);
+    return c.json({ post });
   } catch (error) {
     c.status(500);
     return c.json({ message: "Error fetching post" });
