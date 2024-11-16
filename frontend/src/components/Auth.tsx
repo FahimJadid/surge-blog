@@ -15,6 +15,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginInput, SignupInput } from "@fahimaljadid/surge-common";
 import axios from "axios";
 import { BACKEND_URL } from "./../config";
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 
 type AuthInput = SignupInput | LoginInput;
 

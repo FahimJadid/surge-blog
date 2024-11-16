@@ -1,50 +1,84 @@
-# React + TypeScript + Vite
+# Surge Blog Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
+- [Description](#description)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Endpoints](#endpoints)
+- [Environment Variables](#environment-variables)
+- [License](#license)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Surge Blog is a modern, responsive web application for creating and sharing blog posts. It features a clean, intuitive interface with functionalities like user authentication, blog post creation, commenting, and social interactions such as likes and bookmarks.
 
-## Expanding the ESLint configuration
+## Technologies
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React 
+- TypeScript 
+- Vite 
+- Shadcn
+- Axios
+- React Router DOM 
+- Lucide React
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+To set up the Surge Blog application locally, follow these steps:
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/FahimJadid/surge-blog.git
+   cd surge-blog
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Create a `.env` file in the root directory and add necessary environment variables (see [Environment Variables](#environment-variables) section).
+
+## Usage
+
+To run the application in development mode:
+
+```
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+To build the application for production:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
 ```
+npm run build
+```
+
+To preview the production build:
+
+```
+npm run preview
+```
+
+## Endpoints
+
+The application interacts with a backend API. Here are the main endpoints:
+
+- `GET /blog/bulk`: Fetch all blog posts
+- `GET /blog/:id`: Fetch a specific blog post
+- `POST /blog`: Create a new blog post
+- `PUT /blog/:id`: Update an existing blog post
+- `DELETE /blog/:id`: Delete a blog post
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+VITE_BACKEND_URL=your_api_base_url
+
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

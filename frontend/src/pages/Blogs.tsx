@@ -4,17 +4,16 @@ import AppBar from "@/components/Appbar";
 import { useBlogs } from "@/hooks";
 import BlogsShimmer from "@/components/BlogsShimmer";
 
-
 export default function Blogs() {
   const { loading, blogs } = useBlogs();
 
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const postsPerPage = 5;
-//   const indexOfLastPost = currentPage * postsPerPage;
-//   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-//   const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost)
+  //   const [currentPage, setCurrentPage] = useState(1);
+  //   const postsPerPage = 5;
+  //   const indexOfLastPost = currentPage * postsPerPage;
+  //   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  //   const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost)
 
-//   const paginate = (pageNumber: number) => setCurrentPage(pageNumber); 
+  //   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -24,17 +23,18 @@ export default function Blogs() {
           <BlogsShimmer />
         ) : (
           <div className="space-y-8">
-            {blogs.map((blog) => (
-              <BlogCard
-                key={blog.id}
-                id={blog.id}
-                author={blog.author.name}
-                username={blog.author.username}
-                title={blog.title}
-                content={blog.content}
-                publishedAt={blog.publishedAt}
-              />
-            ))}
+            {blogs &&
+              blogs.map((blog) => (
+                <BlogCard
+                  key={blog.id}
+                  id={blog.id}
+                  author={blog.author.name}
+                  username={blog.author.username}
+                  title={blog.title}
+                  content={blog.content}
+                  publishedAt={blog.publishedAt}
+                />
+              ))}
           </div>
         )}
 

@@ -9,8 +9,9 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { CreatePostInput } from "@fahimaljadid/surge-common";
 import { useNavigate } from 'react-router-dom'
-import { BACKEND_URL } from '@/config'
 import axios from 'axios'
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import { BACKEND_URL } from '@/config'
 
 export default function CreateBlog() {
   const navigate = useNavigate();
