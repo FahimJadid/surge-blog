@@ -1,25 +1,26 @@
 // import { Separator } from "@/components/ui/separator"
 // import { BookmarkIcon, MessageCircle, Share2, ThumbsUp, Upload } from 'lucide-react'
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { CreatePostInput } from "@fahimaljadid/surge-common";
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-import { BACKEND_URL } from '@/config'
+import { BACKEND_URL } from "@/config";
+import AppBar from "@/components/Appbar";
 
 export default function CreateBlog() {
   const navigate = useNavigate();
 
   const initialState: CreatePostInput = {
-    title: '',
-    content: '',  
-  }
+    title: "",
+    content: "",
+  };
 
   const [postInputs, setPostInputs] = useState<CreatePostInput>(initialState);
 
@@ -35,15 +36,13 @@ export default function CreateBlog() {
           },
         }
       );
-        const {id} = response.data;
-        setPostInputs(initialState);
-        navigate(`/blog/${id}`);
-
+      const { id } = response.data;
+      setPostInputs(initialState);
+      navigate(`/blog/${id}`);
     } catch (error) {
       alert(`Error while creating blog post`);
     }
   };
-
 
   // const [post, setPost] = useState({
   //   title: '',
@@ -95,30 +94,34 @@ export default function CreateBlog() {
   // }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Create a New Blog Post</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
-              <Input
-                id="title"
-                name="title"
-                value={postInputs.title}
-                onChange={(e) =>
-                  setPostInputs({
-                    ...postInputs,
-                    title: e.target.value,
-                  })
-                }
-                placeholder="Enter your blog post title"
-                required
-              />
-            </div>
-{/* 
+    <div className="min-h-screen bg-gray-100">
+      <AppBar />
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">
+              Create a New Blog Post
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  name="title"
+                  value={postInputs.title}
+                  onChange={(e) =>
+                    setPostInputs({
+                      ...postInputs,
+                      title: e.target.value,
+                    })
+                  }
+                  placeholder="Enter your blog post title"
+                  required
+                />
+              </div>
+              {/* 
             <div className="space-y-2">
               <Label htmlFor="author.name">Author Name</Label>
               <Input
@@ -130,7 +133,7 @@ export default function CreateBlog() {
                 required
               />
             </div> */}
-{/* 
+              {/* 
             <div className="space-y-2">
               <Label htmlFor="author.username">Author Username</Label>
               <Input
@@ -142,7 +145,7 @@ export default function CreateBlog() {
                 required
               />
             </div> */}
-{/* 
+              {/* 
             <div className="space-y-2">
               <Label htmlFor="readTime">Read Time</Label>
               <Input
@@ -155,25 +158,25 @@ export default function CreateBlog() {
               />
             </div> */}
 
-            <div className="space-y-2">
-              <Label htmlFor="content">Content</Label>
-              <Textarea
-                id="content"
-                name="content"
-                value={postInputs.content}
-                onChange={(e) =>
-                  setPostInputs({
-                    ...postInputs,
-                    content: e.target.value,
-                  })
-                }
-                placeholder="Write your blog post content here..."
-                rows={10}
-                required
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="content">Content</Label>
+                <Textarea
+                  id="content"
+                  name="content"
+                  value={postInputs.content}
+                  onChange={(e) =>
+                    setPostInputs({
+                      ...postInputs,
+                      content: e.target.value,
+                    })
+                  }
+                  placeholder="Write your blog post content here..."
+                  rows={10}
+                  required
+                />
+              </div>
 
-            {/* <div className="space-y-2">
+              {/* <div className="space-y-2">
               <Label htmlFor="image">Cover Image</Label>
               <Input
                 id="image"
@@ -183,16 +186,18 @@ export default function CreateBlog() {
               />
             </div> */}
 
-            <div className="flex justify-between">
-              <Button onClick={sendRequest} type="button">Publish Post</Button>
-              {/* <Button type="button" variant="outline" onClick={() => setPreviewMode(!previewMode)}>
+              <div className="flex justify-between">
+                <Button onClick={sendRequest} type="button">
+                  Publish Post
+                </Button>
+                {/* <Button type="button" variant="outline" onClick={() => setPreviewMode(!previewMode)}>
                 {previewMode ? 'Edit' : 'Preview'}
               </Button> */}
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-{/* 
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+        {/* 
       {previewMode && (
         <Card className="mt-8">
           <CardHeader>
@@ -256,6 +261,7 @@ export default function CreateBlog() {
           </CardContent>
         </Card>
       )} */}
+      </div>
     </div>
-  )
+  );
 }
