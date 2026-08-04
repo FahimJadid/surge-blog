@@ -8,7 +8,7 @@
     "@fahimaljadid/surge-common": "^1.0.0",
     "@prisma/client": "^5.22.0",
     "@prisma/extension-accelerate": "^1.2.1",
-    "hono": "^4.6.9",
+    "hono": "^4.12.34",
     "prisma": "^5.22.0"
   },
   "devDependencies": {
